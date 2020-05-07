@@ -20,6 +20,7 @@ int moveCheck2(int playersMove, char world[][10], int iPosition, int jPosition);
 
 int main(void)
 {
+    int count = 0;
     int seed = time(NULL);
     srand(seed);
     
@@ -77,9 +78,9 @@ int main(void)
     ///////////////////////////////////////////////////////////////////ตั้งบอร์ด//////////////////////////////////////////
  char c;
    do{
-        printf("Welcome to the Adventure Game 8=up,2=down,4=left,6=right\n");
-        printf("X-BLOCK, *-DIE, T-TREASURE, P-PERSON\n");
-        printf("Object of the game is to get to the treasure\n\n");
+        printf("ยินดีต้อนรับผู้เล่น 8=เดินขึ้น,2=เดินลง,4=เดินซ้าย,6=เดินขวา\n");
+        printf("X-ขยะ, *-แพ้, T-นำขยะไปใช้ใหม่, P-ผู้เล่น ,S-คะแนน\n");
+        printf("เก็บขยะให้มากที่สุดแล้วนำไปรีไซเคิล!!!!\n\n");
    for(i=0; i<n; i++)
    {
      for(j=0; j<n; j++)
