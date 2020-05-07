@@ -6,7 +6,7 @@
 
 
 int n = 10;
-
+int count = 0;
 char world[10][10];
 int iPlayerPosition=0, jPlayerPosition=0;
 
@@ -20,7 +20,6 @@ int moveCheck2(int playersMove, char world[][10], int iPosition, int jPosition);
 
 int main(void)
 {
-    int count = 0;
     int seed = time(NULL);
     srand(seed);
     
@@ -39,14 +38,36 @@ int main(void)
     
     
     world[0][0] = 'P';
-    world[n-1][n-1] = 'T';
+    world[n-1][n-1] = 'W';
     
    
+    for(k=0; k < n*(.3); k++)
+    {
+             if(world[iRandom][jRandom] == '0')
+             {
+                                         world[iRandom][jRandom] = 'T';
+                                         
+                                         iRandom = rand()%n + 0;
+                                         jRandom = rand()%n + 0;
+             }                     
+              //*/  
+    }
     for(k=0; k < n*(.5); k++)
     {
              if(world[iRandom][jRandom] == '0')
              {
-                                         world[iRandom][jRandom] = 'X';
+                                         world[iRandom][jRandom] = 'R';
+                                         
+                                         iRandom = rand()%n + 0;
+                                         jRandom = rand()%n + 0;
+             }                     
+              //*/  
+    }
+    for(k=0; k < n*(.7); k++)
+    {
+             if(world[iRandom][jRandom] == '0')
+             {
+                                         world[iRandom][jRandom] = 'C';
                                          
                                          iRandom = rand()%n + 0;
                                          jRandom = rand()%n + 0;
@@ -54,11 +75,11 @@ int main(void)
               //*/  
     }
     
-   for(k=0; k < n*(.10); k++)
+   for(k=0; k < n*(0.5); k++)
     {
              if(world[iRandom][jRandom] == '0')
              {
-                                          world[iRandom][jRandom] = '*';
+                                          world[iRandom][jRandom] = 'X';
                                          iRandom = rand()%n + 0;
                                          jRandom = rand()%n + 0;
                                         
@@ -79,7 +100,8 @@ int main(void)
  char c;
    do{
         printf("ยินดีต้อนรับผู้เล่น 8=เดินขึ้น,2=เดินลง,4=เดินซ้าย,6=เดินขวา\n");
-        printf("X-ขยะ, *-แพ้, T-นำขยะไปใช้ใหม่, P-ผู้เล่น ,S-คะแนน\n");
+        printf("T,R,C-ขยะ, X-แพ้, W-นำขยะไปใช้ใหม่, P-ผู้เล่น ,S-คะแนน\n");
+        printf("มีขยะ %d ชิ้น\n",count);
         printf("เก็บขยะให้มากที่สุดแล้วนำไปรีไซเคิล!!!!\n\n");
    for(i=0; i<n; i++)
    {
@@ -152,18 +174,31 @@ int movePlayer(int playersMove, char world[][n], int iPosition, int jPosition)
 
 int moveCheck(int playersMove, char world[][10], int iPosition, int jPosition)
 {
-    if(world[iPosition][jPosition] == 'X')
+    if(world[iPosition][jPosition] == 'T')
     {
-                                 printf("Can't move there\n");
-                                 return 0;
+      world[iPosition][jPosition] = '.';
+                                 count +=1;
+                            
     }
-     if(world[iPosition][jPosition] == '*')
+    if(world[iPosition][jPosition] == 'R')
+    {
+      world[iPosition][jPosition] = '.';
+                                 count +=1;
+                            
+    }
+    if(world[iPosition][jPosition] == 'C')
+    {
+      world[iPosition][jPosition] = '.';
+                                 count +=1;
+                            
+    }
+     if(world[iPosition][jPosition] == 'X')
     {
          printf("You Lose, Thank You for Playing\n");
          
          return -1;
     }
-    if(world[iPosition][jPosition] == 'T')
+    if(world[iPosition][jPosition] == 'W')
     {
                                  printf("Congratulations you win !\n");
                                  system("pause");
@@ -217,7 +252,7 @@ int wallCheck(int playersMove, char world[][10], int iPosition, int jPosition)
 
 int moveCheck2(int playersMove, char world[][10], int iPosition, int jPosition)
 {
-     if(world[iPosition][jPosition] == '*')
+     if(world[iPosition][jPosition] == 'X')
     {
          printf("You Lose, Thank You for Playing\n");
          return 0;
