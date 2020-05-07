@@ -8,13 +8,13 @@
 int n = 10;
 int count = 0;
 char world[10][10];
-int iPlayerPosition=0, jPlayerPosition=0;
+int XPlayerPosition=0, YPlayerPosition=0;
 
 //Functions 
-int movePlayer(int playersMove, char world[][10], int iPosition, int jPosition);
-int moveCheck(int playersMove, char world[][10], int iPosition, int jPosition);
-int wallCheck(int playersMove, char world[][10], int iPosition, int jPosition);
-int moveCheck2(int playersMove, char world[][10], int iPosition, int jPosition);
+int movePlayer(int playersMove, char world[][10], int XPosition, int YPosition);
+int moveCheck(int playersMove, char world[][10], int XPosition, int YPosition);
+int wallCheck(int playersMove, char world[][10], int XPosition, int YPosition);
+int moveCheck2(int playersMove, char world[][10], int XPosition, int YPosition);
 
 
 
@@ -22,66 +22,59 @@ int main(void)
 {
     int seed = time(NULL);
     srand(seed);
-    
     int playersMove;
     int i,j,k;
-    int iRandom=rand()%n + 0 , jRandom =rand()%n + 0;
+    int XRandom=rand()%n + 0 , YRandom =rand()%n + 0;
     int TRUE;
-    
-    
+
     /****เริ่มตั้ง *********///
    for(i=0; i<n; i++)
      for(j=0; j<n; j++)
        {
-                  world[i][j] = '0'; 
-       }//*/
-    
-    
+            world[i][j] = '0'; 
+       }
+
+
     world[0][0] = 'P';
     world[n-1][n-1] = 'W';
-    
-   
+
     for(k=0; k < n*(.3); k++)
     {
-             if(world[iRandom][jRandom] == '0')
-             {
-                                         world[iRandom][jRandom] = 'T';
-                                         
-                                         iRandom = rand()%n + 0;
-                                         jRandom = rand()%n + 0;
-             }                     
-              //*/  
+             if(world[XRandom][YRandom] == '0')
+            {
+                world[XRandom][YRandom] = 'T';
+                XRandom = rand()%n + 0;
+                YRandom = rand()%n + 0;
+            }
     }
     for(k=0; k < n*(.5); k++)
     {
-             if(world[iRandom][jRandom] == '0')
-             {
-                                         world[iRandom][jRandom] = 'R';
-                                         
-                                         iRandom = rand()%n + 0;
-                                         jRandom = rand()%n + 0;
-             }                     
-              //*/  
+            if(world[XRandom][YRandom] == '0')
+            {
+                world[XRandom][YRandom] = 'R';
+                XRandom = rand()%n + 0;
+                YRandom = rand()%n + 0;
+            }
     }
     for(k=0; k < n*(.7); k++)
     {
-             if(world[iRandom][jRandom] == '0')
+        if(world[XRandom][YRandom] == '0')
              {
-                                         world[iRandom][jRandom] = 'C';
+                                         world[XRandom][YRandom] = 'C';
                                          
-                                         iRandom = rand()%n + 0;
-                                         jRandom = rand()%n + 0;
+                                         XRandom = rand()%n + 0;
+                                         YRandom = rand()%n + 0;
              }                     
               //*/  
     }
     
    for(k=0; k < n*(0.5); k++)
     {
-             if(world[iRandom][jRandom] == '0')
+             if(world[XRandom][YRandom] == '0')
              {
-                                          world[iRandom][jRandom] = 'X';
-                                         iRandom = rand()%n + 0;
-                                         jRandom = rand()%n + 0;
+                                          world[XRandom][YRandom] = 'X';
+                                         XRandom = rand()%n + 0;
+                                         YRandom = rand()%n + 0;
                                         
              }  
     }
@@ -116,7 +109,7 @@ int main(void)
      scanf("%d", &playersMove);
    
      
-      TRUE = movePlayer(playersMove, world, iPlayerPosition, jPlayerPosition);
+      TRUE = movePlayer(playersMove, world, XPlayerPosition, YPlayerPosition);
      
      
      system("cls");
@@ -128,77 +121,77 @@ int main(void)
 }
 
 ///////////////////////////////////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////
-int movePlayer(int playersMove, char world[][n], int iPosition, int jPosition)
+int movePlayer(int playersMove, char world[][n], int XPosition, int YPosition)
+/////ตำแหน่งตัวละคร////////
 {
-    int tempi = iPosition;
-    int tempj = jPosition;
+    int tempi = XPosition;
+    int tempj = YPosition;
     int TRUE;
-    
-   
+
     if(playersMove == 8)
     {
-                   iPlayerPosition -= 1;
+       XPlayerPosition -= 1;////
     }
     else if(playersMove ==2 )
     {
-                   iPlayerPosition += 1;
+                   XPlayerPosition += 1;
     }
     else if(playersMove == 6)
     {
-                   jPlayerPosition += 1;
+                   YPlayerPosition += 1;
     }
     else if(playersMove == 4)
     {
-                   jPlayerPosition -= 1;
+                   YPlayerPosition -= 1;
     }
     
-    TRUE = moveCheck(playersMove, world, iPlayerPosition, jPlayerPosition);
-    if( TRUE == 1 && wallCheck(playersMove, world, iPlayerPosition, jPlayerPosition) == 1)
+    TRUE = moveCheck(playersMove, world, XPlayerPosition, YPlayerPosition);
+    if( TRUE == 1 && wallCheck(playersMove, world, XPlayerPosition, YPlayerPosition) == 1)
     {
     
     char temp = world[tempi][tempj];
-    world[tempi][tempj] =world[iPlayerPosition][jPlayerPosition];
-    world[iPlayerPosition][jPlayerPosition] = temp;
+    world[tempi][tempj] =world[XPlayerPosition][YPlayerPosition];
+    world[XPlayerPosition][YPlayerPosition] = temp;
    
     return TRUE;
     }
     else
     {
-        iPlayerPosition = iPosition;
-        jPlayerPosition = jPosition;
+        XPlayerPosition = XPosition;
+        YPlayerPosition = YPosition;
         
         return TRUE;
     }
     
 }
 
-int moveCheck(int playersMove, char world[][10], int iPosition, int jPosition)
+int moveCheck(int playersMove, char world[][10], int XPosition, int YPosition)
 {
-    if(world[iPosition][jPosition] == 'T')
+    if(world[XPosition][YPosition] == 'T')
     {
-      world[iPosition][jPosition] = '.';
+      world[XPosition][YPosition] = '.';
+                                 count +=3;
+                            
+    }
+    if(world[XPosition][YPosition] == 'R')
+    {
+      world[XPosition][YPosition] = '.';
+                                 count +=2;
+                            
+    }
+    if(world[XPosition][YPosition] == 'C')
+    {
+      world[XPosition][YPosition] = '.';
                                  count +=1;
                             
     }
-    if(world[iPosition][jPosition] == 'R')
-    {
-      world[iPosition][jPosition] = '.';
-                                 count +=1;
-                            
-    }
-    if(world[iPosition][jPosition] == 'C')
-    {
-      world[iPosition][jPosition] = '.';
-                                 count +=1;
-                            
-    }
-     if(world[iPosition][jPosition] == 'X')
+     if(world[XPosition][YPosition] == 'X')
     {
          printf("You Lose, Thank You for Playing\n");
          
          return -1;
     }
-    if(world[iPosition][jPosition] == 'W')
+    if(world[XPosition][YPosition] == 'W')
     {
                                  printf("Congratulations you win !\n");
                                  system("pause");
@@ -208,41 +201,41 @@ int moveCheck(int playersMove, char world[][10], int iPosition, int jPosition)
     return 1;
 }
 
-int wallCheck(int playersMove, char world[][10], int iPosition, int jPosition)
+int wallCheck(int playersMove, char world[][10], int XPosition, int YPosition)
 {
     
-    if(iPosition<0 && jPosition<0 && (playersMove== 8 || playersMove==4))
+    if(XPosition<0 && YPosition<0 && (playersMove== 8 || playersMove==4))
     {
                     printf("Can't move there\n");
                     return 0;
     }
-    else if(iPosition<0 && jPosition>9 && (playersMove== 8 || playersMove==6))
+    else if(XPosition<0 && YPosition>9 && (playersMove== 8 || playersMove==6))
     {
                     printf("Can't move there\n");
                     return 0;
     }
-    else if(iPosition>9 && jPosition<0 && (playersMove== 2 || playersMove==4))
+    else if(XPosition>9 && YPosition<0 && (playersMove== 2 || playersMove==4))
     {
                     printf("Can't move there\n");
                     return 0;
     }
-    else if(iPosition>9 && jPosition<0 && (playersMove== 2 || playersMove==6))
+    else if(XPosition>9 && YPosition<0 && (playersMove== 2 || playersMove==6))
     {
                     printf("Can't move there\n");
                     return 0;
     }
     else
     {
-           if(iPosition < 0 && playersMove == 8)
+           if(XPosition < 0 && playersMove == 8)
            {printf("Can't move there\n");
                     return 0;}
-           if(iPosition > 9 && playersMove == 2)
+           if(XPosition > 9 && playersMove == 2)
            {printf("Can't move there\n");
                     return 0;}
-           if(jPosition < 0 && playersMove == 4)
+           if(YPosition < 0 && playersMove == 4)
            {printf("Can't move there\n");
                     return 0;}
-           if(jPosition > 9 && playersMove == 6)
+           if(YPosition > 9 && playersMove == 6)
            {printf("Can't move there\n");
                     return 0;}
     }
@@ -250,9 +243,9 @@ int wallCheck(int playersMove, char world[][10], int iPosition, int jPosition)
     return 1;
 }
 
-int moveCheck2(int playersMove, char world[][10], int iPosition, int jPosition)
+int moveCheck2(int playersMove, char world[][10], int XPosition, int YPosition)
 {
-     if(world[iPosition][jPosition] == 'X')
+     if(world[XPosition][YPosition] == 'X')
     {
          printf("You Lose, Thank You for Playing\n");
          return 0;
