@@ -34,6 +34,15 @@ for(i=0; i<n; i++)
 world[0][0] = 'P';
 world[n-1][n-1] = 'W';
 
+for(k=0; k < n*(.2); k++)
+{
+    if(world[X_Random][Y_Random] == '0')
+    {
+        world[X_Random][Y_Random] = 'X';
+        X_Random = rand()%n + 0;
+        Y_Random = rand()%n + 0;
+    }
+}
 for(k=0; k < n*(.3); k++)
 {
     if(world[X_Random][Y_Random] == '0')
@@ -61,15 +70,6 @@ for(k=0; k < n*(.7); k++)
         Y_Random = rand()%n + 0;
     }
 }
-for(k=0; k < n*(0.5); k++)
-{
-    if(world[X_Random][Y_Random] == '0')
-    {
-        world[X_Random][Y_Random] = 'X';
-        X_Random = rand()%n + 0;
-        Y_Random = rand()%n + 0;
-    }
-}
 for(i=0; i<n; i++)
     for(j=0; j<n; j++)
     {
@@ -79,8 +79,9 @@ for(i=0; i<n; i++)
 ///////////////////////////////////////////////////Set up Board//////////////////////////////////////////
 char c;
 do{
-    printf("Welcome to the game 8=up,2=down,4=left,6=right\n");
-    printf("T,R,C-Trash, X-Lose, W-Recycle, P-Player ,S-Score\n");
+    printf("Welcome to the game  < Press Arrow >8=up,2=down,4=left,6=right\n");
+    printf("T,R,C-Trash, X-Lose, W-Recycle and Win!, P-Player ,S-Score\n");
+    printf("T = Liquid Or Solid Household Waste! get + 2 point\nR = RECYCLABLE Waste! Get + 3 point\nC = Green Waste! Get + 1\nX = Hazardous waste Get = Die!\n");
     printf("You have %d Score\n",count);
     printf("Pickup trash to recycle!!!!\n\n");
 for(i=0; i<n; i++)
@@ -107,6 +108,7 @@ int movePlayer(int playersMove, char world[][n], int X_Position, int Y_Position)
     if(playersMove == 8)//go up
     {
         X_PlayerPosition -= 1;
+        
     }
     else if(playersMove ==2 )//go down
     {
@@ -143,24 +145,24 @@ int moveCheck(int playersMove, char world[][10], int X_Position, int Y_Position)
     if(world[X_Position][Y_Position] == 'T')
     {
         world[X_Position][Y_Position] = '.';
-        count +=3;
+        count +=2;
     }
     if(world[X_Position][Y_Position] == 'R')
     {
         world[X_Position][Y_Position] = '.';
-        count +=2;
+        count +=3;
     }
     if(world[X_Position][Y_Position] == 'C')
     {
         world[X_Position][Y_Position] = '.';
         count +=1;
     }
-     if(world[X_Position][Y_Position] == 'X')//ชนกับสิ่งกีดขวาง
+     if(world[X_Position][Y_Position] == 'X')//????????????????
     {
         printf("You lose,Thank you to playing\n");
         return -1;
     }
-    if(world[X_Position][Y_Position] == 'W')//ชนกับเส้นชัย
+    if(world[X_Position][Y_Position] == 'W')//????????????
     {
         printf("Congratulations, You Won!\n");
         printf("You have %d Score\n", count);
@@ -175,44 +177,44 @@ int wallCheck(int playersMove, char world[][10], int X_Position, int Y_Position)
 {
     if(X_Position<0 && Y_Position<0 && (playersMove== 8 || playersMove==4))
     {
-        printf("No Way!!!!!\n");
+        printf("Oh i can't move this Way!\n");
         return 0;
     }
     else if(X_Position<0 && Y_Position>9 && (playersMove== 8 || playersMove==6))
     {
-        printf("No Way!!!!!\n");
+        printf("Oh i can't move this Way!\n");
         return 0;
     }
     else if(X_Position>9 && Y_Position<0 && (playersMove== 2 || playersMove==4))
     {
-        printf("No Way!!!!!\n");
+        printf("Oh i can't move this Way!\n");
         return 0;
     }
     else if(X_Position>9 && Y_Position<0 && (playersMove== 2 || playersMove==6))
     {
-        printf("No Way!!!!!\n");
+        printf("Oh i can't move this Way!\n");
         return 0;
     }
     else
     {
         if(X_Position < 0 && playersMove == 8)
         {
-            printf("No Way!!!!!\n");
+            printf("Oh i can't move this Way!\n");
             return 0;
         }
         if(X_Position > 9 && playersMove == 2)
         {
-            printf("No Way!!!!!\n");
+            printf("Oh i can't move this Way!\n");
             return 0;
         }
         if(Y_Position < 0 && playersMove == 4)
         {
-            printf("No Way!!!!!\n");
+            printf("Oh i can't move this Way!\n");
             return 0;
         }
         if(Y_Position > 9 && playersMove == 6)
         {
-            printf("No Way!!!!!\n");
+            printf("Oh i can't move this Way!\n");
             return 0;
         }
     }
