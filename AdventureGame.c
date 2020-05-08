@@ -9,7 +9,7 @@ int count = 0;
 char world[10][10];
 int X_PlayerPosition=0, Y_PlayerPosition=0;
 
-//ฟังค์ชั่น
+//Function
 int movePlayer(int playersMove, char world[][10], int X_Position, int Y_Position);
 int moveCheck(int playersMove, char world[][10], int X_Position, int Y_Position);
 int wallCheck(int playersMove, char world[][10], int X_Position, int Y_Position);
@@ -24,7 +24,7 @@ int i,j,k;
 int X_Random=rand()%n + 0 , Y_Random =rand()%n + 0;
 int TRUE;
 
-//สุ่มขยะ
+//Random Trash
 for(i=0; i<n; i++)
     for(j=0; j<n; j++)
     {
@@ -76,13 +76,13 @@ for(i=0; i<n; i++)
         if(world[i][j] == '0')
         world[i][j] = '.';
     }
-///////////////////////////////////////////////////////////////////ตั้งบอร์ด//////////////////////////////////////////
+///////////////////////////////////////////////////Set up Board//////////////////////////////////////////
 char c;
 do{
-    printf("ยินดีต้อนรับผู้เล่น 8=เดินขึ้น,2=เดินลง,4=เดินซ้าย,6=เดินขวา\n");
-    printf("T,R,C-ขยะ, X-แพ้, W-นำขยะไปใช้ใหม่, P-ผู้เล่น ,S-คะแนน\n");
-    printf("มีขยะ %d ชิ้น\n",count);
-    printf("เก็บขยะให้มากที่สุดแล้วนำไปรีไซเคิล!!!!\n\n");
+    printf("Welcome to the game 8=up,2=down,4=left,6=right\n");
+    printf("T,R,C-Trash, X-Lose, W-Recycle, P-Player ,S-Score\n");
+    printf("You have %d Score\n",count);
+    printf("Pickup trash to recycle!!!!\n\n");
 for(i=0; i<n; i++)
 {
     for(j=0; j<n; j++)
@@ -91,33 +91,32 @@ for(i=0; i<n; i++)
     }
     printf("\n");
 }
-printf("กดปุ่ม Enter เพื่อเดิน: ");
+printf("Press the button Enter to walk: ");
 scanf("%d", &playersMove);
 TRUE = movePlayer(playersMove, world, X_PlayerPosition, Y_PlayerPosition);
 system("cls");
 }while(TRUE != -1 &&TRUE != 2);
 system("pause");
 }
-///////////////////////////////////////////////////////////ฟังค์ชั่น//////////////////////////////////////////////////////////////
+////////////////////////////////Function walk///////////////////////////////////
 int movePlayer(int playersMove, char world[][n], int X_Position, int Y_Position)
-///////////////////////////////ตำแหน่งตัวละครและการขยับของตัวละคร///////////////////////////////
 {
     int tempi = X_Position;
     int tempj = Y_Position;
     int TRUE;
-    if(playersMove == 8)
+    if(playersMove == 8)//go up
     {
         X_PlayerPosition -= 1;
     }
-    else if(playersMove ==2 )
+    else if(playersMove ==2 )//go down
     {
         X_PlayerPosition += 1;
     }
-    else if(playersMove == 6)
+    else if(playersMove == 6)//go right
     {
         Y_PlayerPosition += 1;
     }
-    else if(playersMove == 4)
+    else if(playersMove == 4)//go left
     {
         Y_PlayerPosition -= 1;
     }
@@ -139,7 +138,7 @@ int movePlayer(int playersMove, char world[][n], int X_Position, int Y_Position)
 }
 
 int moveCheck(int playersMove, char world[][10], int X_Position, int Y_Position)
-///////////////////////////////ตรวจสอบการชนกับสิ่งต่างๆ///////////////////////////////
+///////////////////////////////Check Item///////////////////////////////
 {
     if(world[X_Position][Y_Position] == 'T')
     {
@@ -158,13 +157,13 @@ int moveCheck(int playersMove, char world[][10], int X_Position, int Y_Position)
     }
      if(world[X_Position][Y_Position] == 'X')//ชนกับสิ่งกีดขวาง
     {
-        printf("คุณแพ้แล้ว, ขอบคุณที่มาเล่นเกมของเรา\n");
+        printf("You lose,Thank you to playing\n");
         return -1;
     }
     if(world[X_Position][Y_Position] == 'W')//ชนกับเส้นชัย
     {
-        printf("ยินดีด้วยคุณชนะแล้ว!\n");
-        printf("คุณสามารถนำขยะไปใช้ใหม่ได้ทั้งหมด %d ชิ้น\n", count);
+        printf("Congratulations, You Won!\n");
+        printf("You have %d Score\n", count);
         system("pause");
         return 2;
     }
@@ -172,48 +171,48 @@ return 1;
 }
 
 int wallCheck(int playersMove, char world[][10], int X_Position, int Y_Position)
-///////////////////////////////ตรวจสอบการชนกับกำแพง///////////////////////////////
+///////////////////////////////check wall///////////////////////////////
 {
     if(X_Position<0 && Y_Position<0 && (playersMove== 8 || playersMove==4))
     {
-        printf("ไปไม่ได้นะ\n");
+        printf("No Way!!!!!\n");
         return 0;
     }
     else if(X_Position<0 && Y_Position>9 && (playersMove== 8 || playersMove==6))
     {
-        printf("ไปไม่ได้นะ\n");
+        printf("No Way!!!!!\n");
         return 0;
     }
     else if(X_Position>9 && Y_Position<0 && (playersMove== 2 || playersMove==4))
     {
-        printf("ไปไม่ได้นะ\n");
+        printf("No Way!!!!!\n");
         return 0;
     }
     else if(X_Position>9 && Y_Position<0 && (playersMove== 2 || playersMove==6))
     {
-        printf("ไปไม่ได้นะ\n");
+        printf("No Way!!!!!\n");
         return 0;
     }
     else
     {
         if(X_Position < 0 && playersMove == 8)
         {
-            printf("ไปไม่ได้นะ\n");
+            printf("No Way!!!!!\n");
             return 0;
         }
         if(X_Position > 9 && playersMove == 2)
         {
-            printf("ไปไม่ได้นะ\n");
+            printf("No Way!!!!!\n");
             return 0;
         }
         if(Y_Position < 0 && playersMove == 4)
         {
-            printf("ไปไม่ได้นะ\n");
+            printf("No Way!!!!!\n");
             return 0;
         }
         if(Y_Position > 9 && playersMove == 6)
         {
-            printf("ไปไม่ได้นะ\n");
+            printf("No Way!!!!!\n");
             return 0;
         }
     }
@@ -224,7 +223,7 @@ int moveCheck_2(int playersMove, char world[][10], int X_Position, int Y_Positio
 {
     if(world[X_Position][Y_Position] == 'X')
     {
-        printf("คุณแพ้แล้ว, ขอบคุณที่มาเล่นเกมของเรา\n");
+        printf("You lose,Thank you to playing\n");
         return 0;
     }
 return 1;
